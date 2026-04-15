@@ -1,0 +1,533 @@
+/* ══════════════════════════════════════════════
+   BRUTALIST FINANCE DASHBOARD
+   Palette: Black / White / Yellow (#FFD600) / Cyan (#00E5FF) / Red (#FF1744)
+   ══════════════════════════════════════════════ */
+
+/* ── Reset for dashboard root ── */
+#root {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  text-align: left;
+  border-inline: none;
+  background: #f5f5f0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.dashboard {
+  font-family: "Space Grotesk", "IBM Plex Sans", "Arial Black", Arial, sans-serif;
+  background: #f5f5f0;
+  min-height: 100vh;
+  color: #0a0a0a;
+}
+
+/* ══════════════════════════════════════════════
+   HEADER
+   ══════════════════════════════════════════════ */
+.dash-header {
+  background: #0a0a0a;
+  color: #f5f5f0;
+  border-bottom: 4px solid #FFD600;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 28px 32px 24px;
+  flex-wrap: wrap;
+}
+
+.dash-title {
+  font-size: 42px;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -1px;
+  margin: 0 0 8px;
+  color: #f5f5f0;
+  text-transform: uppercase;
+}
+
+.dash-date {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: #FFD600;
+  margin-top: 4px;
+}
+
+.header-stats {
+  display: flex;
+  gap: 0;
+  flex-wrap: wrap;
+  align-self: center;
+}
+
+.stat-block {
+  padding: 16px 28px;
+  border-left: 3px solid #333;
+}
+
+.stat-label {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  color: #888;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+
+.stat-value {
+  font-size: 26px;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  line-height: 1;
+  color: #f5f5f0;
+}
+
+.stat-value.total   { color: #FFD600; }
+.stat-value.surplus { color: #69FF47; }
+.stat-value.ok      { color: #69FF47; }
+.stat-value.over    { color: #FF1744; }
+
+/* ══════════════════════════════════════════════
+   GRID LAYOUT
+   ══════════════════════════════════════════════ */
+.dash-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 0;
+}
+
+/* ══════════════════════════════════════════════
+   PANELS — base
+   ══════════════════════════════════════════════ */
+.panel {
+  border: 3px solid #0a0a0a;
+  padding: 28px 28px 24px;
+  background: #fff;
+  margin: -1.5px; /* collapse double borders */
+}
+
+.panel-heading {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 20px;
+  border-bottom: 3px solid #0a0a0a;
+  padding-bottom: 12px;
+}
+
+.panel-number {
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: #bbb;
+}
+
+.panel-heading h2 {
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  margin: 0;
+  text-transform: uppercase;
+  color: #0a0a0a;
+  flex: 1;
+}
+
+/* ══════════════════════════════════════════════
+   01 — ACCOUNTS
+   ══════════════════════════════════════════════ */
+.accounts-panel {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.accounts-summary {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.summary-pill {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  padding: 5px 12px;
+  border: 2.5px solid #0a0a0a;
+}
+
+.checking-pill { background: #FFD600; color: #0a0a0a; }
+.savings-pill  { background: #0a0a0a; color: #FFD600; }
+
+.accounts-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.account-card {
+  border: 3px solid #0a0a0a;
+  padding: 14px 16px;
+  position: relative;
+  background: #f5f5f0;
+}
+
+.account-card.savings {
+  background: #0a0a0a;
+  color: #f5f5f0;
+}
+
+.account-type-badge {
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: 3px;
+  color: #888;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+
+.account-card.savings .account-type-badge { color: #555; }
+
+.account-name {
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  line-height: 1.2;
+}
+
+.account-balance {
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  line-height: 1;
+}
+
+.account-card.savings .account-balance { color: #FFD600; }
+
+.account-apy {
+  margin-top: 6px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #69FF47;
+  background: #1a1a1a;
+  display: inline-block;
+  padding: 2px 6px;
+}
+
+/* ══════════════════════════════════════════════
+   02 — SPENDING / BUDGET
+   ══════════════════════════════════════════════ */
+.budget-panel {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.budget-totals {
+  font-size: 12px;
+  font-weight: 700;
+  margin-left: auto;
+  letter-spacing: 0.5px;
+}
+
+.budget-totals .over { color: #FF1744; }
+
+.budget-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.budget-row {
+  border: 2.5px solid #0a0a0a;
+  padding: 10px 12px 8px;
+  background: #f5f5f0;
+}
+
+.budget-row-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+.budget-icon { font-size: 14px; }
+
+.budget-name {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  flex: 1;
+}
+
+.budget-amounts {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.budget-amounts.over .spent { color: #FF1744; font-weight: 900; }
+
+.budget-remaining {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #555;
+  white-space: nowrap;
+}
+
+.budget-remaining.over  { color: #FF1744; background: #fff0f0; padding: 1px 5px; }
+.budget-remaining.exact { color: #0a0a0a; }
+
+/* ── Progress bars ── */
+.progress-track {
+  height: 10px;
+  background: #e0e0e0;
+  border: 2px solid #0a0a0a;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  transition: width 0.4s ease;
+}
+
+.progress-fill.ok      { background: #FFD600; }
+.progress-fill.warning { background: #FF9100; }
+.progress-fill.over    { background: #FF1744; }
+
+/* ══════════════════════════════════════════════
+   03 — SAVINGS BUCKETS
+   ══════════════════════════════════════════════ */
+.buckets-panel {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.buckets-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.savings-bucket {
+  border: 3px solid #0a0a0a;
+  padding: 16px 18px 14px;
+  background: #f5f5f0;
+}
+
+.bucket-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+.bucket-name {
+  font-size: 15px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+
+.bucket-desc {
+  font-size: 11px;
+  color: #666;
+  font-weight: 500;
+}
+
+.bucket-pct {
+  font-size: 36px;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+
+.bucket-amounts {
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.bucket-saved  { font-size: 18px; font-weight: 900; }
+.bucket-goal   { color: #888; }
+
+.bucket-track {
+  height: 14px;
+  border: 2.5px solid #0a0a0a;
+  margin-bottom: 10px;
+}
+
+.bucket-fill { height: 100%; transition: width 0.4s ease; }
+
+.bucket-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.months-left {
+  background: #0a0a0a;
+  color: #f5f5f0;
+  padding: 3px 8px;
+  font-size: 10px;
+}
+
+.goal-reached {
+  background: #69FF47;
+  color: #0a0a0a;
+  padding: 3px 8px;
+  font-size: 10px;
+  font-weight: 900;
+}
+
+/* ══════════════════════════════════════════════
+   04 — PROJECTION
+   ══════════════════════════════════════════════ */
+.projection-panel {
+  grid-column: 2;
+  grid-row: 2;
+  background: #0a0a0a;
+  color: #f5f5f0;
+}
+
+.projection-panel .panel-heading {
+  border-bottom-color: #333;
+}
+
+.projection-panel .panel-heading h2 {
+  color: #f5f5f0;
+}
+
+.projection-subtitle {
+  font-size: 12px;
+  color: #888;
+  margin-bottom: 16px;
+  letter-spacing: 0.5px;
+  line-height: 1.4;
+}
+
+.projection-subtitle strong { color: #69FF47; }
+
+.projection-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.projection-legend {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.legend-item {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  border: 2px solid;
+  padding: 3px 8px;
+}
+
+.legend-item.savings-line {
+  border-color: #FFD600;
+  color: #FFD600;
+}
+
+.legend-item.surplus-line {
+  border-color: #555;
+  color: #888;
+}
+
+.projection-svg {
+  width: 100%;
+  height: 180px;
+  border: 2.5px solid #333;
+  display: block;
+  background: #111;
+}
+
+.projection-milestones {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.milestone-tag {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border: 2px solid #444;
+  color: #aaa;
+  padding: 4px 10px;
+}
+
+.net-worth-tag {
+  border-color: #69FF47;
+  color: #69FF47;
+}
+
+/* ══════════════════════════════════════════════
+   FOOTER
+   ══════════════════════════════════════════════ */
+.dash-footer {
+  background: #0a0a0a;
+  color: #444;
+  border-top: 4px solid #FFD600;
+  padding: 14px 32px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+}
+
+.dash-footer code {
+  background: #222;
+  color: #FFD600;
+  padding: 1px 6px;
+  font-size: 10px;
+  border-radius: 0;
+  display: inline;
+}
+
+/* ══════════════════════════════════════════════
+   RESPONSIVE
+   ══════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .dash-grid {
+    grid-template-columns: 1fr;
+  }
+  .accounts-panel,
+  .budget-panel,
+  .buckets-panel,
+  .projection-panel {
+    grid-column: 1;
+    grid-row: auto;
+  }
+  .dash-header {
+    flex-direction: column;
+    padding: 20px;
+  }
+  .dash-title { font-size: 30px; }
+  .stat-block { padding: 12px 16px; border-left-width: 2px; }
+  .stat-value { font-size: 20px; }
+  .panel { padding: 20px; }
+  .accounts-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 500px) {
+  .accounts-grid { grid-template-columns: 1fr; }
+  .header-stats { flex-direction: column; gap: 0; }
+}
